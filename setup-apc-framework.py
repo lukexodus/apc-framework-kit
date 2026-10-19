@@ -131,6 +131,14 @@ def main():
 
         print(f"  [CREATED] {dst_rel}")
 
+    # Ensure patch/ directory exists with a .gitkeep
+    patch_dir = target_dir / "patch"
+    patch_dir.mkdir(parents=True, exist_ok=True)
+    gitkeep_file = patch_dir / ".gitkeep"
+    if not gitkeep_file.exists():
+        gitkeep_file.write_text("", encoding="utf-8")
+        print(f"  [CREATED] patch/.gitkeep")
+
     # Generate initial repo-tree.txt if tree command exists
     if shutil.which("tree"):
         os.system(f"cd '{target_dir}' && tree -I '.git|.venv|venv|__pycache__|node_modules|*.tar.gz' --dirsfirst --noreport > docs/context/repo-tree.txt 2>/dev/null || true")

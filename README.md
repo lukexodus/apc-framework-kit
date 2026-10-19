@@ -91,6 +91,7 @@ Local agents running concurrent tasks must never collide on the same working tre
 │   │   └── STANDALONE-PROMPT-TEMPLATE.md    # Template for task prompts
 │   └── guide/                               # Guides for developers and collaborators
 │       └── COLLABORATOR-GUIDE.md            # Onboarding & workflow guide for contributors
+├── patch/                                   # Standalone exported patch files (<TASK-ID>-*.patch)
 ├── scripts/
 │   ├── apc-bundle.sh                        # Safe context packager with secret guards & manifest
 │   ├── task-worktree.sh                     # Helper script enforcing worktree rules
@@ -115,23 +116,24 @@ Local agents running concurrent tasks must never collide on the same working tre
          (In dedicated task worktree)
                        │
                        ▼
-       [Local Agent Implements & Tests]
-         • Reads complete-context.md & status.md
-         • Verifies claims directly against filesystem
-         • Runs test suite (e.g. pytest, npm test)
-         • Writes report: docs/reports/<ID>-<agent>-<slug>.md
-         • Appends decision to decision-log.md [D-xx]
-         • Updates task row in docs/tasks/status.md
+       [Local Agent Implements, Verifies & Packages]
+         1. Reads complete-context.md, status.md & verifies facts
+         2. Executes tests (e.g. pytest, npm test, cargo test)
+         3. Commits unit of work: git commit -m "<type>(<ID>): ..."
+         4. Exports patch file: patch/<ID>-<agent>-<slug>.patch
+         5. Writes report: docs/reports/<ID>-<agent>-<slug>.md
+         6. Logs decision [D-xx] & updates docs/tasks/status.md
+         7. Runs validation: ./scripts/validate-report.py
+         8. Builds fresh bundle if needed: ./scripts/apc-bundle.sh
                        │
                        ▼
-       [Human reviews git diff & merges worktree]
+       [Human audits worktree: ./scripts/task-worktree.sh handoff <ID>]
                        │
                        ▼
-       [Human relays report & diff to APC AI]
-         (Or packages apc-bundle.sh if broader context is needed)
+       [Human relays report, patch & diff to APC AI]
                        │
                        ▼
-       [APC verifies against acceptance criteria]
+       [APC verifies against acceptance criteria & merges]
          (Accepts task or issues FIX-xxx)
                        │
                        ▼
