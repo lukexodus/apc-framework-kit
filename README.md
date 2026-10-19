@@ -87,8 +87,10 @@ Local agents running concurrent tasks must never collide on the same working tre
 │   │   └── decision-log.md                  # Append-only immutable decision records ([D-01]...)
 │   ├── reports/                             # Unit-of-work audit reports (one per task)
 │   │   └── TASK-TEMPLATE.md                 # Standard task report template
-│   └── prompts/                             # Standalone task prompts sent to agents
-│       └── STANDALONE-PROMPT-TEMPLATE.md    # Template for task prompts
+│   ├── prompts/                             # Standalone task prompts sent to agents
+│   │   └── STANDALONE-PROMPT-TEMPLATE.md    # Template for task prompts
+│   └── guide/                               # Guides for developers and collaborators
+│       └── COLLABORATOR-GUIDE.md            # Onboarding & workflow guide for contributors
 ├── scripts/
 │   ├── apc-bundle.sh                        # Safe context packager with secret guards & manifest
 │   ├── task-worktree.sh                     # Helper script enforcing worktree rules

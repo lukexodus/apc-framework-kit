@@ -17,6 +17,7 @@ PROFILE_CORE=(
   docs/tasks/status.md
   docs/tasks/high-level-tasks.md
   docs/prompts/STANDALONE-ADOPTION-PROMPT.md
+  docs/guide/COLLABORATOR-GUIDE.md
 )
 
 PROFILE_DEV=(

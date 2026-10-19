@@ -24,6 +24,7 @@ FILE_MAPPING = [
     ("docs/reports/TASK-TEMPLATE.md.template", "docs/reports/TASK-TEMPLATE.md"),
     ("docs/prompts/STANDALONE-PROMPT-TEMPLATE.md.template", "docs/prompts/STANDALONE-PROMPT-TEMPLATE.md"),
     ("docs/prompts/STANDALONE-ADOPTION-PROMPT.md.template", "docs/prompts/STANDALONE-ADOPTION-PROMPT.md"),
+    ("docs/guide/COLLABORATOR-GUIDE.md.template", "docs/guide/COLLABORATOR-GUIDE.md"),
     ("scripts/apc-bundle.sh.template", "scripts/apc-bundle.sh"),
     ("scripts/task-worktree.sh.template", "scripts/task-worktree.sh"),
     ("scripts/validate-report.py.template", "scripts/validate-report.py"),
