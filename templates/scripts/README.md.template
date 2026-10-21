@@ -55,7 +55,10 @@ Enforces worktree isolation when running multiple local agents or tasks in paral
 # Validate worktree state before operator commit
 ./scripts/task-worktree.sh handoff CORE-001
 
-# Clean up worktree after merge
+# Safely audit, merge worktree to current branch, and clean up
+./scripts/task-worktree.sh merge CORE-001
+
+# Clean up worktree manually after merge (if not using merge command)
 ./scripts/task-worktree.sh remove CORE-001
 ```
 
