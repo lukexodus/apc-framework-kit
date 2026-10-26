@@ -212,3 +212,30 @@ Drawing from hundreds of hours of production experience with this setup, the fra
 ### 5. Bidirectional Diff Contract
 - Enforced in `STANDALONE-ADOPTION-PROMPT.md`: Both local agents and the APC AI communicate modifications as standard unified diffs or targeted snippets, preserving context windows in both directions.
 
+
+---
+
+## 8. Building the Distribution Tarball
+
+The kit ships as a single `apc-framework-kit.tar.gz` archive. Build it with the repo script instead of creating it by hand:
+
+```bash
+./build-tarball.sh                    # writes ~/projects/apc-framework-kit.tar.gz
+./build-tarball.sh /tmp/kit.tar.gz    # optional custom output path
+```
+
+- Packages the **working tree** (tracked files plus untracked non-ignored files), so uncommitted edits are included.
+- Always excludes `.git/` and `.obsidian/`.
+- Rebuilding unchanged content produces a byte-identical archive (normalized timestamps, sorted members, gzip without timestamp).
+- Prints file count, size, and SHA-256 so a release can be verified.
+
+### Keeping this script current
+
+Whenever the kit changes, check `build-tarball.sh` before finishing:
+
+- **New file that should ship:** no script change needed. It is picked up automatically once tracked or left untracked-and-not-ignored. Commit it.
+- **New file or directory that should NOT ship** (caches, generated output, editor state): add it to the exclusion pathspec in `build-tarball.sh`.
+- **Renamed repo folder or changed archive prefix:** update `PREFIX` in `build-tarball.sh`.
+- **Any kit change:** rerun `./build-tarball.sh` and report the new path, file count, size, and SHA-256.
+
+The archive vendors `build-tarball.sh` itself, so kit consumers can rebuild it locally.
